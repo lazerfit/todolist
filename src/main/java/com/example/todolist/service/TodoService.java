@@ -1,8 +1,8 @@
 package com.example.todolist.service;
 
-import com.example.todolist.dtos.TodoDTO;
-import com.example.todolist.dtos.TodoUpdateDTO;
 import com.example.todolist.domain.Todos;
+import com.example.todolist.dtos.TodoResponseDTO;
+import com.example.todolist.dtos.TodoUpdateDTO;
 import com.example.todolist.exception.TodoNotFound;
 import com.example.todolist.repository.TodosRepository;
 import java.util.List;
@@ -17,8 +17,9 @@ public class TodoService {
     private final TodosRepository todosRepository;
 
     @Transactional
-    public void save(Todos todo) {
-        todosRepository.save(todo);
+    public TodoResponseDTO save(Todos todo) {
+        Todos savedTodos = todosRepository.save(todo);
+        return new TodoResponseDTO(savedTodos);
     }
 
     @Transactional
@@ -27,22 +28,27 @@ public class TodoService {
         todosRepository.delete(todos);
     }
 
-    @Transactional(readOnly = true)
-    public List<TodoDTO> getAllTodos() {
-        List<Todos> all = todosRepository.findAll();
-        return all.stream().map(TodoDTO::new).toList();
+    @Transactional
+    public void deleteAll() {
+        todosRepository.deleteAll();
     }
 
     @Transactional(readOnly = true)
-    public TodoDTO getTodo(Long id) {
+    public List<TodoResponseDTO> getAllTodos() {
+        List<Todos> all = todosRepository.findAll();
+        return all.stream().map(TodoResponseDTO::new).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public TodoResponseDTO getTodo(Long id) {
         Todos todos = todosRepository.findById(id).orElseThrow(TodoNotFound::new);
-        return new TodoDTO(todos);
+        return new TodoResponseDTO(todos);
     }
 
     @Transactional
-    public TodoDTO update(TodoUpdateDTO updateDTO) {
+    public TodoResponseDTO update(TodoUpdateDTO updateDTO) {
         Todos todos = todosRepository.findById(updateDTO.getId()).orElseThrow(TodoNotFound::new);
         todos.update(updateDTO);
-        return new TodoDTO(todos);
+        return new TodoResponseDTO(todos);
     }
 }

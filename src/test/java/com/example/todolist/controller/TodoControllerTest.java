@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.example.todolist.dtos.TodoDTO;
+import com.example.todolist.dtos.TodoResponseDTO;
 import com.example.todolist.dtos.TodoUpdateDTO;
 import com.example.todolist.domain.Todos;
 import com.example.todolist.repository.TodosRepository;
@@ -57,7 +58,7 @@ class TodoControllerTest {
             .andExpect(status().isOk())
             .andDo(print());
 
-        List<TodoDTO> allTodos = todoService.getAllTodos();
+        List<TodoResponseDTO> allTodos = todoService.getAllTodos();
         assertThat(allTodos).hasSize(1);
         assertThat(allTodos.get(0).getContent()).isEqualTo("todo 앱 만들기");
         assertThat(allTodos.get(0).getIsDone()).isFalse();
