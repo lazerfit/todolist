@@ -5,8 +5,24 @@
   font-weight: normal;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 li{
   list-style: none;
+}
+
+h2{
+  text-align: center;
+}
+
+button{
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.input{
+  padding-left: 20px;
 }

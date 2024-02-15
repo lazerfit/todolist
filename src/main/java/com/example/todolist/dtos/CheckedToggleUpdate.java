@@ -5,16 +5,17 @@ import lombok.Getter;
 import lombok.NonNull;
 
 @Getter
-public class TodoUpdateDTO {
+public class CheckedToggleUpdate {
 
     @NonNull
     private Long id;
+
     @NonNull
-    private String content;
+    private Boolean isDone;
 
     @Builder
-    public TodoUpdateDTO(Long id, String content) {
+    public CheckedToggleUpdate(@NonNull Long id, @NonNull Boolean isDone) {
         this.id = id;
-        this.content = content;
+        this.isDone = isDone;
     }
 }

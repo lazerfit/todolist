@@ -1,5 +1,6 @@
 package com.example.todolist.domain;
 
+import com.example.todolist.dtos.CheckedToggleUpdate;
 import com.example.todolist.dtos.TodoUpdateDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,6 +34,9 @@ public class Todos {
 
     public void update(TodoUpdateDTO updateDTO) {
         this.content= updateDTO.getContent();
-        this.isDone=updateDTO.getIsDone();
+    }
+
+    public void checkedToggleUpdate(CheckedToggleUpdate update) {
+        this.isDone=update.getIsDone();
     }
 }

@@ -1,6 +1,8 @@
 package com.example.todolist.service;
 
 import com.example.todolist.domain.Todos;
+import com.example.todolist.dtos.CheckedToggleUpdate;
+import com.example.todolist.dtos.TodoDTO;
 import com.example.todolist.dtos.TodoResponseDTO;
 import com.example.todolist.dtos.TodoUpdateDTO;
 import com.example.todolist.exception.TodoNotFound;
@@ -17,8 +19,9 @@ public class TodoService {
     private final TodosRepository todosRepository;
 
     @Transactional
-    public TodoResponseDTO save(Todos todo) {
-        Todos savedTodos = todosRepository.save(todo);
+    public TodoResponseDTO save(TodoDTO todo) {
+        Todos savedTodos = todosRepository.save(
+            Todos.builder().content(todo.getContent()).isDone(todo.getIsDone()).build());
         return new TodoResponseDTO(savedTodos);
     }
 
@@ -49,6 +52,13 @@ public class TodoService {
     public TodoResponseDTO update(TodoUpdateDTO updateDTO) {
         Todos todos = todosRepository.findById(updateDTO.getId()).orElseThrow(TodoNotFound::new);
         todos.update(updateDTO);
+        return new TodoResponseDTO(todos);
+    }
+
+    @Transactional
+    public TodoResponseDTO checkedToggleUpdate(CheckedToggleUpdate update) {
+        Todos todos = todosRepository.findById(update.getId()).orElseThrow(TodoNotFound::new);
+        todos.checkedToggleUpdate(update);
         return new TodoResponseDTO(todos);
     }
 }

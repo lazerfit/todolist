@@ -3,10 +3,12 @@ package com.example.todolist.dtos;
 import com.example.todolist.domain.Todos;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 
 @Getter
 public class TodoDTO {
 
+    @NonNull
     private String content;
     private Boolean isDone;
 

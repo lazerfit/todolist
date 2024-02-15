@@ -86,7 +86,6 @@ class TodoServiceTest {
 
         TodoUpdateDTO updateDTO = TodoUpdateDTO.builder()
             .content("수정")
-            .isDone(true)
             .id(todos.getId())
             .build();
 
