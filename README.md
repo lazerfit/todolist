@@ -1,1 +1,1 @@
-Vue3.js + Spring boot
+Vue.js 3.x + Spring boot
